@@ -3,14 +3,11 @@ const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const path = require('path');
-const multer = require('multer'); // Import multer
+const multer = require('multer');
 
 const app = express();
 
-// Set EJS as the view engine
 app.set('view engine', 'ejs');
-
-// Render the index.ejs file
 app.get('/', (req, res) => {
     res.render('index', { message: '' });
 });
@@ -31,10 +28,8 @@ const storage = multer.diskStorage({
     }
 });
 
-
 const upload = multer({ storage: storage });
 
-// Handle form submission
 // Handle form submission
 app.post('/sendEmail', upload.array('attachments', 5), (req, res) => { // Use upload.array to handle multiple files
     const { recipient, subject, message } = req.body;
